@@ -27,7 +27,7 @@ class LineItemsController < ApplicationController
   # POST /line_items.json
   def create
     product = Product.find(params[:product_id])
-    @line_item = @cart.add_product(product.id)
+    @line_item = @cart.add_product(product.id, product.price)
     session[:counter] = 0
 
     respond_to do |format|
@@ -60,7 +60,11 @@ class LineItemsController < ApplicationController
   def destroy
     @line_item.destroy
     respond_to do |format|
-      format.html { redirect_to line_items_url }
+      if LineItem.find_by_cart_id(@line_item.cart_id).nil?
+        format.html { redirect_to(store_url, notice: 'Cart Empty') }
+      else
+        format.html { redirect_to(@line_item.cart, notice: 'Item Removed') }
+      end
       format.json { head :no_content }
     end
   end
