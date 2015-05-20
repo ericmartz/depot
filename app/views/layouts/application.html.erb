@@ -14,8 +14,9 @@
 		</div>
 		<div id="columns">
 			<div id="side">
-				<span class="notice_text">The day and time is:<br><%= display_time %></span>
-				<span class="notice_text"> and you have visited this store <%= @count %> times.</span>
+				<div id="cart">
+					<%= render @cart %>
+				</div>
 				<ul>
 					<li><%= link_to "Home", store_url %></li>
 					<li><a href="#">Questions</a></li>
