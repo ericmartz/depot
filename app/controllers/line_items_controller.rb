@@ -62,7 +62,7 @@ class LineItemsController < ApplicationController
     @line_item.destroy
     respond_to do |format|
       if LineItem.find_by_cart_id(@line_item.cart_id).nil?
-        format.html { redirect_to(store_url, notice: 'Cart Empty') }
+        format.html { redirect_to(store_url) }
       else
         format.html { redirect_to(store_url, notice: 'Item Removed') }
       end
